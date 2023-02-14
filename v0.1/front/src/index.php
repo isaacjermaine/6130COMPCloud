@@ -2,7 +2,7 @@
 <body>
 
 <?php
-$players = file('http://172.17.0.1:84/back.php?make='.GET["get_footballers"]);
+$players = file('http://172.17.0.1:84/back.php?make=get_players');
 ?>
 
 <h1>Front</h1>
@@ -10,14 +10,14 @@ $players = file('http://172.17.0.1:84/back.php?make='.GET["get_footballers"]);
 <p>Please select your favourite footballer, and fill in various bitssssss</p>
 
 <form action="/form.php" method=”get”>
-  <label for="footballers">Choose a footballer:</label>
-  <select name="footballers" id="footballers">
+  <label for="player">Choose a football player:</label>
+  <select name="player" id="player">
     <?php
     foreach ($players as $player){
         echo $player;
         $player_name = explode(" ", $player)[0];
-        echo "<option value=".$player_name.">".$player_name."</option>"
-    }
+        echo "<option value=".$player_name.">".$player_name."</option>";
+    };
     ?>
   </select>
   <br><br>

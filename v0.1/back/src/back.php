@@ -3,8 +3,8 @@ require 'vendor/autoload.php';
 $client = new MongoDB\Client(
     'mongodb://root:snow@172.17.0.1:27017'
 );
-function get_footballers(){
-    $collection = $client->crisp->footballers;
+function get_players(){
+    $collection = $client->crisp->players;
     $cursor = $collection->find();
     foreach ($cursor as $document) {
         echo $document['_id'] . " " . $document['name'] . "<br>";
@@ -16,10 +16,10 @@ function set_favourite($user, $favourite, $code){
     #write to db
 }
 
-if ($_GET["get_footballers"]) {
-    get_footballers();
+if ($_GET["make"] == "get_players") {
+    get_players();
 }
-if ($_GET["set_footballers"]) {
+if ($_GET["make"] == "send_choice") {
     set_footballers();
 }
 ?>
