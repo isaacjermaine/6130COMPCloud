@@ -1,0 +1,44 @@
+version: '3'
+services:
+  front1:
+    build: ./front
+    ports:
+      - "81:80"
+  front2:
+    build: ./front
+    ports:
+      - "82:80"
+  front3:
+    build: ./front
+    ports:
+      - "83:80"
+  nginx_front:
+    build: ./nginx_front
+    ports:
+      - "80:80"
+    depends_on:
+     - front1
+     - front2
+     - front3
+
+
+  back1:
+    build: ./back
+    ports:
+      - "85:80"
+  back2:
+    build: ./back
+    ports:
+      - "86:80"
+  back3:
+    build: ./back
+    ports:
+      - "87:80"
+  nginx_back:
+    build: ./nginx_back
+    ports:
+      - "84:80"
+    depends_on:
+     - back1
+     - back2
+     - back3
