@@ -15,9 +15,13 @@ function set_favourite($user, $favourite, $code){
     $collection = $client->crisp->users;
     #write to db
 }
-
+echo "haha";
 if ($_GET["make"] == "get_players") {
-    get_players();
+    //get_players();
+    $pluz = file('playerbase.txt');
+    foreach($pluz as $pl){
+        echo $pl;
+    }
 }
 if ($_GET["make"] == "send_choice") {
     set_footballers();

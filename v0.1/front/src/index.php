@@ -3,6 +3,7 @@
 
 <?php
 $players = file('http://172.17.0.1:84/back.php?make=get_players');
+//$players = file('playerbase.txt');
 ?>
 
 <h1>Front</h1>
