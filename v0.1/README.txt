@@ -40,3 +40,9 @@ docker container rm back_inst && \
 docker image rm backtest:latest && \
 docker build ./back/ -t backtest && \
 docker run -d -p 84:80 --name back_inst backtest
+
+docker container stop v01-nginx_back-1 && \
+docker container rm v01-nginx_back-1 && \
+docker image rm v01-nginx_back:latest && \
+docker build ./nginx_back/ -t v01-nginx_back && \
+docker run -d -p 84:80 --name v01-nginx_back v01-nginx_back-1

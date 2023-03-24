@@ -15,7 +15,7 @@ function set_favourite($user, $favourite, $code){
     $collection = $client->crisp->users;
     #write to db
 }
-echo "back:";
+echo "back: ";
 if ($_GET["make"] == "get_players") {
     //get_players();
     $pluz = file('playerbase.txt');
@@ -24,7 +24,7 @@ if ($_GET["make"] == "get_players") {
     }
 }
 if ($_GET["make"] == "send_choice") {
-    echo "back: processing choice";
+    echo "send choice: processing choice";
     $name = urldecode($_GET["name"]);
     $email = urldecode($_GET["email"]);
     $address = urldecode($_GET["address"]);
