@@ -1,3 +1,13 @@
+//new
+
+cd /mnt/c/Users/Isaac/Documents/Programming/6130COMPweek1/6130COMPCloud/v1.0/
+docker-compose up --build
+
+docker build ./back/ -t backtest && \
+docker run -d -p 84:80 --name back_inst backtest
+
+//old
+
 rm -rf ~/docker/cw \
 && mkdir ~/docker/cw \
 && cp -TRv /mnt/c/Users/Isaac/Documents/Programming/6130COMPweek1/6130COMPCloud ~/docker/cw \

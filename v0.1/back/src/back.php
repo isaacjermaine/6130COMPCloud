@@ -1,7 +1,9 @@
 <?php
+/*
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+*/
 
 require 'vendor/autoload.php';
 //'mongodb://root:snow@172.17.0.1:27017'
@@ -14,9 +16,12 @@ try {
     die('Error connecting to MongoDB server');
 } catch (MongoException $e) {
     die('Error: ' . $e->getMessage());
+} catch (Exception $e) {
+    die('General Error: ' . $e);
 }
 
 function get_players(){
+    global $client;
     echo "getting players...";
     $collection = $client->crisp->players;
     $cursor = $collection->find();
@@ -26,11 +31,13 @@ function get_players(){
 }
 
 function set_favourite($user, $favourite, $code){
+    global $client;
     $collection = $client->crisp->users;
     #write to db
 }
 
 function get_user($email){
+    global $client;
     $collection = $client->crisp->users;
     $found = $collection->findOne(['email' => $email]);
     if (is_null($found)){
@@ -42,11 +49,12 @@ function get_user($email){
 function create_user($name, $email, $address, $favourite){
     #checks to see if user already exists, if so attempts to create user, returns true
     #else returns false (user already exists, or attempt to create user failed)
+    global $client;
     $collection = $client->crisp->users;
     $user = get_user($email);
     if (!$user){
         #create user
-        $inserted = $collection->insertOne(['name' => $name, 'email' => $email, 'address' => $address, 'favourite': $favourite]);
+        $inserted = $collection->insertOne(['name' => $name, 'email' => $email, 'address' => $address, 'favourite' => $favourite]);
         return $inserted->isAcknowledged();
     }
     else {
@@ -56,11 +64,12 @@ function create_user($name, $email, $address, $favourite){
 
 function update_user($name, $email, $address, $favourite){
     #updates a user's information and favourite, searched by email
+    global $client;
     $collection = $client->crisp->users;
     $user = get_user($email);
     if (!$user){
         #update user
-        $updated = $collection->updateOne(['email' => $email], ['name' => $name,'address' => $address, 'favourite': $favourite]);
+        $updated = $collection->updateOne(['email' => $email], ['name' => $name,'address' => $address, 'favourite' => $favourite]);
         return $updated->isAcknowledged();
     }
     else {
@@ -71,13 +80,15 @@ function update_user($name, $email, $address, $favourite){
 function check_code($code){
     #if code exists:
     #   if code is taken: return false
-    #   if code not taken: return true
+    #   if code not taken: return voucher
     #if code doesn't exist: return false
+    global $client;
     $collection = $client->crisp->codes;
     $found = $collection->findOne(['code' => $code]);
     if (!is_null($found)){
-        if ($found=->taken == 0){
-            return(true);
+        if ($found->taken == 0){
+            return $found;
+            //return(true);
         }
     }
     return(false);
@@ -87,6 +98,7 @@ function use_code($code){
     #checks to see if code is available
     #if so, set code as unavailable, return acknowledgement
     #else, return false
+    global $client;
     $collection = $client->crisp->code;
     $result = check_code($code);
     if ($result){
@@ -138,10 +150,10 @@ if ($_GET["make"] == "send_choice") {
     #   else
     #       update user choice
     #       return 'code used'
-    $user = get_user($email, $name, $address);
+    $user = get_user($email);
     $code = check_code($promocode);
     if (!$user){
-        $was_inserted = create_user($name, $email, $address);
+        $was_inserted = create_user($name, $email, $address, $favourite);
         if ($code){
             $voucher = use_code($promocode);
             echo $voucher;
