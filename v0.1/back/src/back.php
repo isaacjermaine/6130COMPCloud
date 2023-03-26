@@ -7,7 +7,8 @@ error_reporting(E_ALL);
 
 require 'vendor/autoload.php';
 //'mongodb://root:snow@172.17.0.1:27017'
-echo "back: connecting to database...";
+echo "back: connecting to database...\n";
+
 try {
     $client = new MongoDB\Client(
         'mongodb://mongo1:27017,mongo2:27017,mongo3:27017/admin?replicaSet=rs0'
@@ -26,6 +27,7 @@ function get_players(){
     $collection = $client->crisp->players;
     $cursor = $collection->find();
     foreach ($cursor as $document) {
+        echo $document;
         echo $document['_id'] . " " . $document['name'] . "<br>";
     }
 }
