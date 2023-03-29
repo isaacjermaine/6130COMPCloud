@@ -23,9 +23,8 @@ $players = file('http://172.17.0.1:84/back.php?make=get_players');
     <select name="player" id="player">
         <?php
         foreach ($players as $player){
-            echo $player;
             $player_name = explode(" ", $player)[0];
-            echo "<option value=".$player_name.">".$player_name."</option>";
+            echo "<option value=".$player.">".$player."</option>";
         };
         ?>
     </select>

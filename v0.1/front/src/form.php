@@ -5,10 +5,10 @@ $full_string = 'http://172.17.0.1:84/back.php?make=send_choice&name='.urlencode(
 '&player='.urlencode($_GET["player"]).
 '&promocode='.urlencode($_GET["promocode"]);
 
-echo $full_string;
+#echo $full_string;
 
 $contents = file_get_contents($full_string);
-
-echo "page returned by container 1 <hr>";
+;
+echo "Thank you for submitting your details. Voucher: <hr>";
 echo $contents;
 ?>
