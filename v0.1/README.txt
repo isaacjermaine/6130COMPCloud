@@ -1,3 +1,20 @@
+# Instructions
+Change directory to /v1.0/
+Then run
+
+docker-compose up --build
+
+to build and start the containers. Once fully installed (can take a while), this should take just over 30 seconds to fully initialise.
+Once initilised, connect to localhost:80 (127.0.0.1:80) in a browser to see the form page.
+To stop the containers, ctrl-c the command line monitoring the containers, then use
+
+docker-compose down
+
+to stop and delete the containers. This will remove the database completely, so next time the
+containers are run, everything will start fresh.
+
+# Miscellanious
+
 //new
 
 cd /mnt/c/Users/Isaac/Documents/Programming/6130COMPweek1/6130COMPCloud/v1.0/
