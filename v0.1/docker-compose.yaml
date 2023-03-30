@@ -4,45 +4,64 @@ services:
     build: ./front
     ports:
       - "81:80"
+    networks:
+      - front-tier
   front2:
     build: ./front
     ports:
       - "82:80"
+    networks:
+      - front-tier
   front3:
     build: ./front
     ports:
       - "83:80"
+    networks:
+      - front-tier
   nginx_front:
     build: ./nginx_front
     ports:
       - "80:80"
+    networks:
+      - front-tier
     depends_on:
      - front1
      - front2
      - front3
 
-
   back1:
     build: ./back
     ports:
       - "85:80"
+    networks:
+      - front-tier
+      - back-tier
   back2:
     build: ./back
     ports:
       - "86:80"
+    networks:
+      - front-tier
+      - back-tier
   back3:
     build: ./back
     ports:
       - "87:80"
+    networks:
+      - front-tier
+      - back-tier
   nginx_back:
+    hostname: backend
     build: ./nginx_back
     ports:
       - "84:80"
+    networks:
+      - front-tier
+      - back-tier
     depends_on:
      - back1
      - back2
      - back3
-
 
   mongo1:
     hostname: mongo1
@@ -50,6 +69,8 @@ services:
     image: mongo:4.1
     ports:
       - "40001:27017"
+    networks:
+      - back-tier
     restart: always
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
   mongo2:
@@ -58,6 +79,8 @@ services:
     image: mongo:4.1
     ports:
       - "40002:27017"
+    networks:
+      - back-tier
     restart: always
     entrypoint: [ "/usr/bin/mongod","--bind_ip_all", "--replSet", "rs0" ]
   mongo3:
@@ -66,12 +89,21 @@ services:
     image: mongo:4.1
     ports:
       - "40003:27017"
+    networks:
+      - back-tier
     restart: always
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0" ]
   mongo-config:
     hostname: mongo-config
     container_name: mongo-config
     image: mongo:4.1
+    networks:
+      - front-tier
+      - back-tier
     volumes:
       - ./scripts:/scripts
     entrypoint: [ "bash", "/scripts/rs-init.sh" ]
+
+networks:
+  front-tier:
+  back-tier:

@@ -2,10 +2,11 @@
 <body>
 
 <?php
-$players = file('http://172.17.0.1:84/back.php?make=get_players');
+#$players = file('http://172.17.0.1:84/back.php?make=get_players');
+$players = file('http://backend/back.php?make=get_players');
 ?>
 
-<h1>Front</h1>
+<h1>Runners Crisps</h1>
 
 <p>Please enter your details, select your favourite football player, and enter the code from your bag:</p>
 
