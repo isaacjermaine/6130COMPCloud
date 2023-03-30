@@ -13,6 +13,22 @@ docker-compose down
 to stop and delete the containers. This will remove the database completely, so next time the
 containers are run, everything will start fresh.
 
+# Testing
+## Get players
+When loading the initial page, players should be collected from the back end, showing up in the dropdown box.
+
+## Submit response
+To test the code submission and voucher return, enter the following details:
+
+Name: Cid
+Email: cid@gmail.com
+Address: 123 short road
+Favourite player: Po Tato
+Code: ABCDE12345
+
+Upon clicking submit, the data should be checked, and the voucher code "VOUCH1" should be displayed on the new page.
+
+
 # Miscellanious
 
 //new
